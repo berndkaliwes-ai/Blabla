@@ -1,0 +1,32 @@
+# XTTS V2 Frontend Dockerfile
+FROM node:18-alpine
+
+# Arbeitsverzeichnis
+WORKDIR /app
+
+# Package-Dateien kopieren
+COPY frontend/package*.json ./
+
+# Abhängigkeiten installieren
+RUN npm ci --only=production
+
+# Frontend-Code kopieren
+COPY frontend/ .
+
+# Build für Produktion
+RUN npm run build
+
+# Nginx für statische Dateien
+FROM nginx:alpine
+
+# Nginx-Konfiguration
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+# Build-Dateien kopieren
+COPY --from=0 /app/dist /usr/share/nginx/html
+
+# Port freigeben
+EXPOSE 3000
+
+# Startbefehl
+CMD ["nginx", "-g", "daemon off;"]

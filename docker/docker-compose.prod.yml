@@ -1,0 +1,102 @@
+# Production configuration for XTTS V2 Voice Cloning Studio
+version: '3.8'
+
+services:
+  backend:
+    restart: always
+    environment:
+      - DEBUG=false
+      - RELOAD=false
+      - LOG_LEVEL=INFO
+      - WORKERS=2
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - voices_data:/app/voices
+      - models_data:/app/models
+      - outputs_data:/app/outputs
+      - logs_data:/app/logs
+    healthcheck:
+      test: ["/healthcheck.sh", "backend"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  frontend:
+    restart: always
+    environment:
+      - NODE_ENV=production
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    healthcheck:
+      test: ["/healthcheck.sh", "frontend"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Reverse Proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: xtts-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx-prod.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # Monitoring (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: xtts-prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+volumes:
+  voices_data:
+    driver: local
+  models_data:
+    driver: local
+  outputs_data:
+    driver: local
+  logs_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  default:
+    name: xtts-production
+    driver: bridge
