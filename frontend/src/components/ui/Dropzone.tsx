@@ -16,7 +16,6 @@ export default function Dropzone({
 }: DropzoneProps) {
   const handleDrop = useCallback((acceptedFiles: File[], rejectedFiles: any[]) => {
     if (rejectedFiles.length > 0) {
-      // Handle rejected files
       console.warn('Rejected files:', rejectedFiles)
     }
     
@@ -31,7 +30,6 @@ export default function Dropzone({
     isDragActive,
     isDragAccept,
     isDragReject,
-    acceptedFiles,
     fileRejections
   } = useDropzone({
     onDrop: handleDrop,
@@ -53,19 +51,13 @@ export default function Dropzone({
 
   const stateClasses = {
     default: 'border-slate-600 bg-dark-800/50',
-    active: 'border-primary-500 bg-primary-500/10 scale-105',
-    accept: 'border-green-500 bg-green-500/10 scale-105',
-    reject: 'border-red-500 bg-red-500/10 scale-105'
+    active: 'border-primary-500 bg-primary-500/10',
+    accept: 'border-green-500 bg-green-500/10',
+    reject: 'border-red-500 bg-red-500/10'
   }
 
-  const stateIcons = {
-    default: Upload,
-    active: Upload,
-    accept: CheckCircle,
-    reject: AlertCircle
-  }
-
-  const StateIcon = stateIcons[state]
+  const StateIcon = state === 'accept' ? CheckCircle : 
+                   state === 'reject' ? AlertCircle : Upload
 
   return (
     <div className={cn('w-full', className)}>
@@ -79,22 +71,14 @@ export default function Dropzone({
       >
         <input {...getInputProps()} />
         
-        <motion.div
-          animate={{ 
-            scale: isDragActive ? 1.1 : 1,
-            rotate: isDragActive ? 5 : 0 
-          }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-        >
-          <StateIcon 
-            className={cn(
-              'w-12 h-12 mx-auto mb-4 transition-colors duration-200',
-              state === 'accept' ? 'text-green-400' :
-              state === 'reject' ? 'text-red-400' :
-              state === 'active' ? 'text-primary-400' : 'text-slate-400'
-            )} 
-          />
-        </div>
+        <StateIcon 
+          className={cn(
+            'w-12 h-12 mx-auto mb-4 transition-colors duration-200',
+            state === 'accept' ? 'text-green-400' :
+            state === 'reject' ? 'text-red-400' :
+            state === 'active' ? 'text-primary-400' : 'text-slate-400'
+          )} 
+        />
         
         <AnimatePresence mode="wait">
           <motion.div
@@ -121,7 +105,7 @@ export default function Dropzone({
                   Dateien hier ablegen
                 </p>
                 <p className="text-sm text-green-300">
-                  {acceptedFiles.length} Datei(en) bereit zum Upload
+                  Bereit zum Upload
                 </p>
               </>
             )}
@@ -154,7 +138,7 @@ export default function Dropzone({
                 </div>
               </>
             )}
-          </div>
+          </motion.div>
         </AnimatePresence>
       </div>
 
@@ -183,7 +167,7 @@ export default function Dropzone({
                 </ul>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

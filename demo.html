@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTTS V2 Voice Cloning Studio - Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text { background: linear-gradient(to right, #3b82f6, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark': {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        },
+                        'primary': {
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb'
+                        },
+                        'accent': {
+                            400: '#e879f9',
+                            500: '#d946ef',
+                            600: '#c026d3'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass border-b border-white/10 p-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center animate-float">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold gradient-text">XTTS Studio</h1>
+                    <p class="text-xs text-slate-400">Voice Cloning V2</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-xs text-slate-400">System Online</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-8">
+        <!-- Hero Section -->
+        <div class="text-center space-y-6 mb-12">
+            <div class="inline-flex items-center space-x-2 glass rounded-full px-4 py-2 text-primary-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <span class="text-sm font-medium">XTTS V2 Powered</span>
+            </div>
+            
+            <h1 class="text-4xl lg:text-6xl font-bold">
+                <span class="gradient-text">Voice Cloning</span><br>
+                <span class="text-white">Studio</span>
+            </h1>
+            
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                Erstellen Sie realistische Stimmen-Klone und generieren Sie natürlich klingende Sprache 
+                mit der neuesten XTTS V2 Technologie von Coqui AI.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-medium px-8 py-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <span>Stimme klonen</span>
+                </button>
+                
+                <button class="bg-slate-700 hover:bg-slate-600 text-white font-medium px-8 py-4 rounded-lg transition-all duration-200 border border-slate-600 hover:border-slate-500 flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"></path>
+                    </svg>
+                    <span>Text sprechen</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="glass rounded-xl p-6 text-center card-hover">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-500/20 rounded-xl mb-4">
+                    <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                    </svg>
+                </div>
+                <div class="text-3xl font-bold text-white mb-2">0</div>
+                <div class="text-slate-400">Geklonte Stimmen</div>
+            </div>
+            
+            <div class="glass rounded-xl p-6 text-center card-hover">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-accent-500/20 rounded-xl mb-4">
+                    <svg class="w-6 h-6 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10v4a2 2 0 002 2h2a2 2 0 002-2v-4M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1"></path>
+                    </svg>
+                </div>
+                <div class="text-3xl font-bold text-white mb-2">0</div>
+                <div class="text-slate-400">Generierte Audios</div>
+            </div>
+            
+            <div class="glass rounded-xl p-6 text-center card-hover">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-green-500/20 rounded-xl mb-4">
+                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                    </svg>
+                </div>
+                <div class="text-3xl font-bold text-white mb-2">16+</div>
+                <div class="text-slate-400">Sprachen</div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">Leistungsstarke Features</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    Alles was Sie für professionelles Voice Cloning und Text-to-Speech benötigen
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Voice Cloning Feature -->
+                <div class="glass rounded-xl p-8 card-hover">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-white mb-3">Voice Cloning</h3>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        Klonen Sie jede Stimme mit nur wenigen Audio-Samples
+                    </p>
+                    
+                    <div class="flex items-center text-primary-400 font-medium">
+                        <span>Stimme klonen</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- TTS Feature -->
+                <div class="glass rounded-xl p-8 card-hover">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-accent-500 to-accent-600 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-white mb-3">Text-to-Speech</h3>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        Verwandeln Sie Text in natürlich klingende Sprache
+                    </p>
+                    
+                    <div class="flex items-center text-accent-400 font-medium">
+                        <span>Text sprechen</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Voice Library Feature -->
+                <div class="glass rounded-xl p-8 card-hover">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-white mb-3">Stimmen-Bibliothek</h3>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        Verwalten Sie Ihre geklonten Stimmen
+                    </p>
+                    
+                    <div class="flex items-center text-green-400 font-medium">
+                        <span>Stimmen verwalten</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="glass rounded-2xl p-8 mt-12">
+            <div class="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Bereit loszulegen?</h3>
+                    <p class="text-slate-400">
+                        Starten Sie mit dem Klonen Ihrer ersten Stimme oder generieren Sie sofort Sprache.
+                    </p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                        <span>Erste Stimme klonen</span>
+                    </button>
+                    
+                    <button class="bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-medium px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        <span>Text sprechen</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass border-t border-white/10 mt-16 p-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-slate-400 mb-4">
+                Entwickelt mit ❤️ für die Voice AI Community
+            </p>
+            <div class="flex items-center justify-center space-x-6 text-sm text-slate-500">
+                <span>🤖 XTTS V2 (Coqui AI)</span>
+                <span>⚛️ React + TypeScript</span>
+                <span>🚀 FastAPI + Python</span>
+                <span>🐳 Docker + Docker Compose</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const cards = document.querySelectorAll('.card-hover');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            cards.forEach((card) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+            
+            // Button click effects
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    ripple.style.marginLeft = '-10px';
+                    ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+        
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -37,15 +37,7 @@ export default function VoicesPage() {
     }
   }
 
-  const _getStatusColor = (status: Voice['status']) => {
-    switch (status) {
-      case 'ready': return 'text-green-400'
-      case 'processing': return 'text-yellow-400'
-      case 'training': return 'text-blue-400'
-      case 'error': return 'text-red-400'
-      default: return 'text-slate-400'
-    }
-  }
+
 
   const getStatusText = (status: Voice['status']) => {
     switch (status) {
