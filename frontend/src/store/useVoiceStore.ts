@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { apiClient, handleAPIError } from '@/utils/api'
-import type { Voice, VoiceStore, VoiceCloneRequest } from '@/types'
+import type { Voice, VoiceStore } from '@/types'
 import toast from 'react-hot-toast'
 
 export const useVoiceStore = create<VoiceStore>((set, get) => ({
@@ -50,7 +50,7 @@ export const useVoiceStore = create<VoiceStore>((set, get) => ({
     }
   },
 
-  cloneVoice: async (request) => {
+  cloneVoice: async (request: any) => {
     set({ isLoading: true, error: null })
     
     try {

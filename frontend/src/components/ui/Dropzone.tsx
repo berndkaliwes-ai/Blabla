@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Upload, FileAudio, AlertCircle, CheckCircle } from 'lucide-react'
+import { Upload, AlertCircle, CheckCircle } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import type { DropzoneProps } from '@/types'
 
@@ -69,15 +69,8 @@ export default function Dropzone({
 
   return (
     <div className={cn('w-full', className)}>
-      <motion.div
+      <div
         {...getRootProps()}
-        animate={{
-          scale: state === 'default' ? 1 : 1.02,
-          borderColor: state === 'accept' ? '#10b981' : 
-                      state === 'reject' ? '#ef4444' : 
-                      state === 'active' ? '#3b82f6' : '#475569'
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={cn(
           'border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300',
           stateClasses[state],
@@ -101,7 +94,7 @@ export default function Dropzone({
               state === 'active' ? 'text-primary-400' : 'text-slate-400'
             )} 
           />
-        </motion.div>
+        </div>
         
         <AnimatePresence mode="wait">
           <motion.div
@@ -161,9 +154,9 @@ export default function Dropzone({
                 </div>
               </>
             )}
-          </motion.div>
+          </div>
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* File Rejections */}
       <AnimatePresence>
@@ -190,7 +183,7 @@ export default function Dropzone({
                 </ul>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>

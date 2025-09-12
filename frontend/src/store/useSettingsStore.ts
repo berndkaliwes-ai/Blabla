@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { apiClient, handleAPIError } from '@/utils/api'
 import type { SettingsStore, GenerationSettings, Language } from '@/types'
-import toast from 'react-hot-toast'
+// import toast from 'react-hot-toast'
 
 const defaultSettings: GenerationSettings = {
   temperature: 0.7,

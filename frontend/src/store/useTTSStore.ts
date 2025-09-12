@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { apiClient, handleAPIError } from '@/utils/api'
-import type { TTSStore, TTSRequest, TTSResponse } from '@/types'
+import type { TTSStore, TTSRequest } from '@/types'
 import toast from 'react-hot-toast'
 
 export const useTTSStore = create<TTSStore>()(

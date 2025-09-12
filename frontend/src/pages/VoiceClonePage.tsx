@@ -66,7 +66,7 @@ export default function VoiceClonePage() {
     })
   }
 
-  const togglePlay = (id: string, src: string) => {
+  const togglePlay = (id: string, _src: string) => {
     if (playingId === id) {
       setPlayingId(null)
     } else {

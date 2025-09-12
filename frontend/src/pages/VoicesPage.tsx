@@ -37,7 +37,7 @@ export default function VoicesPage() {
     }
   }
 
-  const getStatusColor = (status: Voice['status']) => {
+  const _getStatusColor = (status: Voice['status']) => {
     switch (status) {
       case 'ready': return 'text-green-400'
       case 'processing': return 'text-yellow-400'
